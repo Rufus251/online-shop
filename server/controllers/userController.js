@@ -1,14 +1,18 @@
-class UserController {
-    async registration(req, res){
+import ApiErrorClass from "../error/apiError.js";
 
+const apiError = new ApiErrorClass()
+class UserController {
+  async registration(req, res) {}
+
+  async login(req, res) {}
+
+  async checkAuth(req, res, next) {
+    const { id } = req.query;
+    if (!id) {
+      return next(apiError.badRequest("Не указан id"));
     }
-    async login(req, res){
-        
-    }
-    async checkAuth(req, res){
-        const query = req.query
-        res.json(query)
-    }
+    res.json(id);
+  }
 }
 
-export default new UserController
+export default new UserController();

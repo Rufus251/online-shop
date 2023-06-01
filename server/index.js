@@ -10,7 +10,6 @@ import ErrorHandler from "./middleware/ErrorHandlingMiddleware.js";
 import * as models from "./models/models.js";
 
 import * as dotenv from "dotenv";
-
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 

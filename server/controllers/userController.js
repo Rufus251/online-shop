@@ -1,5 +1,6 @@
 import ApiErrorClass from "../error/apiError.js";
 
+
 import bcrypt, { compareSync } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User, Basket } from "../models/models.js";
@@ -60,11 +61,8 @@ class UserController {
   }
 
   async checkAuth(req, res, next) {
-    const { id } = req.query;
-    if (!id) {
-      return next(apiError.badRequest("Не указан id"));
-    }
-    res.json(id);
+    const token = generateJwt(req.user.id, req.user.email, req.user.role)
+    return res.json({token})
   }
 }
 

@@ -4,7 +4,7 @@ import controller from "../controllers/brandController.js"
 
 const router = new Router();
 
-router.post("/", controller.create);
+router.post("/", checkRole('ADMIN'), controller.create);
 router.get("/", controller.getAll);
 
 export default router;

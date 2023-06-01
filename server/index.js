@@ -2,7 +2,7 @@ import express from "express";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import sequelize from "./db.js";
-
+import path from "path";
 import router from "./router/index.js";
 
 import ErrorHandler from "./middleware/ErrorHandlingMiddleware.js";
@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
+app.use(express.static(path.resolve('static')))
 app.use(fileUpload({}));
 app.use(cors());
 app.use("/api", router);

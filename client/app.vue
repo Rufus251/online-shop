@@ -1,17 +1,19 @@
 <template>
   <div>
     <Nav></Nav>
-    <NuxtPage></NuxtPage>
+    <NuxtPage class="main"></NuxtPage>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  data() {
-    return {
-      isAuth: useState("isAuth", () => true),
-    };
-  },
+  computed: {
+    ...mapState({
+      isAuth: state => state.isAuth,
+      isAdmin: state => state.isAdmin,
+    })
+  }
 };
 </script>
 
@@ -20,5 +22,8 @@ export default {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+.main{
+  margin-top: 64px;
 }
 </style>

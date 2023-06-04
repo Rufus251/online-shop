@@ -1,47 +1,47 @@
 <template>
   <div class="nav">
-    <ul>
-      <li><NuxtLink to="/"> Home </NuxtLink></li>
-      <li><NuxtLink to="/about"> About </NuxtLink></li>
-      <li><NuxtLink to="/info"> Info </NuxtLink></li>
-      <li><NuxtLink to="/page/1"> page 1 </NuxtLink></li>
-      <li><NuxtLink to="/page/2"> page 2 </NuxtLink></li>
-    </ul>
+    <v-card>
+    <v-layout>
+      <v-navigation-drawer
+        class="bg-grey"
+        theme="dark"
+        permanent
+      >
+        <v-list color="transparent">
+          <v-list-item title="Dashboard"></v-list-item>
+          <v-list-item title="Account"></v-list-item>
+          <v-list-item title="Admin"></v-list-item>
+        </v-list>
+
+        <template v-slot:append>
+          <div class="pa-2">
+            <v-btn v-if="isAuth" block>
+              Login
+            </v-btn>
+            <v-btn v-else block>
+              Logout
+            </v-btn>
+          </div>
+        </template>
+      </v-navigation-drawer>
+    </v-layout>
+  </v-card>
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      isAuth: useState("isAuth"),
+    };
+  },
+};
+</script>
+
 <style scoped lang="scss">
 .nav {
-  background-color: #cccccc;
-
-  width: 100%;
-  height: 50px;
-
-  padding: 15px;
-
-  ul {
-    width: 100%;
-    height: 100%;
-
-    list-style: none;
-
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    align-items: center;
-
-    li {
-      a {
-        color: #000000;
-
-        text-decoration: none;
-
-        &:hover {
-          opacity: 0.8;
-          cursor: pointer;
-        }
-      }
-    }
-  }
+  margin: 5px auto;
+  width: 95%;
 }
 </style>

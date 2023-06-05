@@ -2,86 +2,54 @@
   <div class="nav">
     <v-card>
       <v-layout>
-        <v-app-bar color="primary" prominent>
-          <v-app-bar-nav-icon
-            variant="text"
-            @click.stop="drawer = !drawer"
-          ></v-app-bar-nav-icon>
+        <v-app-bar color="grey-lighten-2" prominent>
 
-          <v-toolbar-title>BuyDevice</v-toolbar-title>
+          <v-toolbar-title><NuxtLink to="/">BuyDevice</NuxtLink></v-toolbar-title>
 
           <v-spacer></v-spacer>
+          <div class="nav__btns">
+            <v-btn variant="outlined" v-if="isAdmin && isAuth"> Админ-панель </v-btn>
+            <v-btn variant="outlined" v-if="!isAuth" @click="setAuth(!isAuth)"> Зарегистрироваться </v-btn>
+            <v-btn variant="outlined" v-else @click="setAuth(!isAuth)"> Выйти из аккаунта </v-btn>
+          </div>
         </v-app-bar>
-
-        <v-navigation-drawer
-          style="height: auto"
-          v-model="drawer"
-          location="top"
-        >
-          <v-list>
-            <v-list-item class="list-item" v-for="item in nonAdminItems" :key="item" 
-            >
-              <NuxtLink  :to="item.routeTo" @click="drawer=false">
-                {{ item.title }}
-              </NuxtLink>
-            </v-list-item>
-            <v-list-item class="list-item" v-if="isAdmin">
-              <NuxtLink to="/admin"  @click="drawer=false">
-                Админ панель
-              </NuxtLink>
-            </v-list-item>
-          </v-list>
-        </v-navigation-drawer>
       </v-layout>
     </v-card>
+    
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+
 export default {
-  data() {
-    return {
-      nonAdminItems: [
-        {
-          title: 'Магазин',
-          routeTo: '/',
-          adminRequire: false
-        },
-        {
-          title: 'Корзина',
-          routeTo: '/basket',
-          adminRequire: false
-        },
-      ],
-      drawer: false,
-    };
-  },
   computed: {
     ...mapState({
-      isAuth: state => state.isAuth,
-      isAdmin: state => state.isAdmin,
+      isAuth: (state) => state.isAuth,
+      isAdmin: (state) => state.isAdmin,
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      setAuth: 'setAuth'
     })
   }
 };
 </script>
 
 <style scoped lang="scss">
-.list-item{
+.nav{
 
   a{
     color: #000000;
     text-decoration: none;
-
-    display: block;
-
-    width: 100%;
-    height: 100%;
   }
+  &__btns{
+    display: flex;
 
-  &:hover{
-    background-color: #eeeeee;
-    cursor: pointer;
+    margin-right: 10px;
+    gap: 10px;
   }
 }
 </style>
+

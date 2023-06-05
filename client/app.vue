@@ -26,4 +26,15 @@ export default {
 .main{
   margin-top: 64px;
 }
+
+// For vuetify
+.auth{
+  .v-text-field--plain-underlined .v-input__details {
+    padding: 3px;
+  }
+  .v-btn{
+    padding: 15px;
+    min-width: auto;
+  }
+}
 </style>

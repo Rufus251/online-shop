@@ -4,8 +4,8 @@
       <v-container>
         <v-col>
           <v-text-field
-            v-model="login"
-            :rules="loginRules"
+            v-model="email"
+            :rules="emailRules"
             variant="underlined"
             label="Login"
             required
@@ -22,33 +22,46 @@
             required
           ></v-text-field>
         </v-col>
-        <div class="auth__btn">
-          <p v-if="!isRegister">
-            Нет аккаунта?
-            <span @click="isRegister = !isRegister">Регистрация</span>
-          </p>
-          <p v-else>
-            Есть аккаунт? <span @click="isRegister = !isRegister">Войти</span>
-          </p>
-          <v-btn
-            v-if="!isRegister"
-            type="submit"
-            variant="outlined"
-            block
-            @click="loginUser()"
-          >
-            Войти
-          </v-btn>
-          <v-btn
-            v-else
-            type="submit"
-            variant="outlined"
-            block
-            @click="registerUser()"
-          >
-            Зарегистрироваться
-          </v-btn>
-        </div>
+        <v-col v-if="authMessage">
+            <p class="auth__message">
+                {{ authMessage }}
+            </p>
+        </v-col>
+        <v-col>
+            <div class="auth__btn">
+              <p v-if="!isRegister">
+                Нет аккаунта?
+                <span @click="isRegister = !isRegister">Регистрация</span>
+              </p>
+              <p v-else>
+                Есть аккаунт? <span @click="isRegister = !isRegister">Войти</span>
+              </p>
+              <v-btn
+                v-if="!isRegister"
+                type="submit"
+                variant="outlined"
+                block
+                @click="loginUser({
+                    email,
+                    password
+                })"
+              >
+                Войти
+              </v-btn>
+              <v-btn
+                v-else
+                type="submit"
+                variant="outlined"
+                block
+                @click="registerUser({
+                    email,
+                    password
+                })"
+              >
+                Зарегистрироваться
+              </v-btn>
+            </div>
+        </v-col>
       </v-container>
     </v-form>
   </div>
@@ -56,28 +69,35 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
       isRegister: false,
-      login: "",
-      loginRules: [
+      email: "user@mail.ru",
+      emailRules: [
         (value) => !!value || "Введите логин",
         (value) => value.length > 6 || "Логин должен быть больше 6 символов",
       ],
-      password: "",
+      password: "123456",
       passwordRules: [
         (value) => !!value || "Введите пароль",
-        (value) => value.length > 6 || "Пароль должен быть больше 6 символов",
+        (value) => value.length > 5 || "Пароль должен быть 6 или больше символов",
       ],
     };
   },
   computed: {
     ...mapState({
       isAuth: (state) => state.isAuth,
+      authMessage: (state) => state.authMessage
     }),
   },
+  methods: {
+    ...mapActions({
+        loginUser: 'loginUser',
+        registerUser: 'registerUser'
+    })
+  }
 };
 </script>
 
@@ -91,6 +111,9 @@ export default {
   .v-form {
     width: 100%;
   }
+  &__message{
+    color: rgb(223, 0, 0);
+  }
   &__btn {
     margin: auto;
 
@@ -100,6 +123,14 @@ export default {
 
     justify-content: center;
     align-items: center;
+
+    span{
+        color: #0077ff;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
   }
 }
 </style>

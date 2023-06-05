@@ -37,7 +37,7 @@ class UserController {
     const basket = await Basket.create({ userId: user.id });
 
     const token = generateJwt(user.id, user.email, user.role);
-    return res.json({token})
+    return res.json({token}, user.role, basket)
   }
 
   async login(req, res, next) {
@@ -55,9 +55,10 @@ class UserController {
         apiError.internal("Неверный пароль")
       );
     }
-
+    const userId = user.id
+    const basket = await Basket.findOne({where: {userId}})
     const token = generateJwt(user.id, user.email, user.role)
-    return res.json({token})
+    return res.json({token, role: user.role, basket})
   }
 
   async checkAuth(req, res, next) {

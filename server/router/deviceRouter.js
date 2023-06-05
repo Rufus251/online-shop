@@ -1,5 +1,5 @@
 import Router from "express";
-
+import checkRole from "../middleware/checkRoleMiddleware.js";
 import controller from "../controllers/deviceController.js"
 
 const router = new Router();

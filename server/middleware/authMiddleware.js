@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-export default function(req, res, next){
+import { User } from "../models/models.js";
+export default async function(req, res, next){
     if (req.method === 'OPTIONS'){
         next()
     }
@@ -10,6 +11,12 @@ export default function(req, res, next){
             return res.status(401).json({message: "Токен не валиден"})
         }
         const decoded = jwt.verify(token, process.env.SECRET_KEY)
+
+        const user = await User.findOne({ where: { id: decoded.id } });
+        if (user.token !== token){
+            return res.status(401).json({message: "Устаревший токен"})
+        }
+
         req.user = decoded
         next()
     }catch(e){

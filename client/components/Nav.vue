@@ -9,8 +9,8 @@
           <v-spacer></v-spacer>
           <div class="nav__btns">
             <v-btn variant="outlined" v-if="isAdmin && isAuth"> Админ-панель </v-btn>
-            <v-btn variant="outlined" v-if="!isAuth" @click="setAuth(!isAuth)"> Зарегистрироваться </v-btn>
-            <v-btn variant="outlined" v-else @click="setAuth(!isAuth)"> Выйти из аккаунта </v-btn>
+            <v-btn variant="outlined" v-if="!isAuth" @click="$router.push('/auth')"> Войти </v-btn>
+            <v-btn variant="outlined" v-else @click="logout()"> Выйти из аккаунта </v-btn>
           </div>
         </v-app-bar>
       </v-layout>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
@@ -30,8 +30,8 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations({
-      setAuth: 'setAuth'
+    ...mapActions({
+        logout: 'logout'
     })
   }
 };

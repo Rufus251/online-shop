@@ -5,14 +5,27 @@
   </div>
 </template>
 
-<script>
-import { mapState } from "vuex";
+<script> 
+import { mapState, mapActions } from "vuex";
 export default {
+  mounted(){
+    setTimeout(() => {
+      console.log("async")  
+      this.tokenAuth()
+    }, 2000);
+    
+  },
   computed: {
-    ...mapState({
+    ...mapState({  
       isAuth: state => state.isAuth,
-      isAdmin: state => state.isAdmin,
+      isAdmin: state => state.isAdmin,  
     })
+  },
+  
+  methods: {
+    ...mapActions({
+      tokenAuth: "tokenAuth"
+    }) 
   }
 };
 </script>

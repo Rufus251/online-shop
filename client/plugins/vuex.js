@@ -37,7 +37,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       setBrands(state, payload){
         state.brands = payload;
       },
-      setDevice(state, payload){
+      setDevices(state, payload){
         state.devices = payload;
       }
     },
@@ -143,7 +143,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           console.log(device)
           state.commit('setBrands', brand)
           state.commit('setType', type)
-          state.commit('setDevice', device.rows)
+          state.commit('setDevices', device.rows)
         } catch (e) {
           console.log(e)
         }

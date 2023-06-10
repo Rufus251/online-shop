@@ -39,6 +39,8 @@ export default {
   min-width: auto;
   max-width: auto;
   width: auto;
+
+  font-family: "Comic Sans MS"
 }
 .main{
   margin-top: 64px;

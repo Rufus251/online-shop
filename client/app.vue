@@ -10,8 +10,8 @@ import { mapState, mapActions } from "vuex";
 export default {
   mounted(){
     setTimeout(() => {
-      console.log("async")  
-      this.tokenAuth()
+      this.tokenAuth(),
+      this.typeBrandDeviceLoad()
     }, 2000);
     
   },
@@ -24,7 +24,8 @@ export default {
   
   methods: {
     ...mapActions({
-      tokenAuth: "tokenAuth"
+      tokenAuth: "tokenAuth",
+      typeBrandDeviceLoad: "typeBrandDeviceLoad"
     }) 
   }
 };
@@ -35,6 +36,9 @@ export default {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  min-width: auto;
+  max-width: auto;
+  width: auto;
 }
 .main{
   margin-top: 64px;
@@ -42,12 +46,13 @@ export default {
 
 // For vuetify
 .auth{
+  position: relative;
   .v-text-field--plain-underlined .v-input__details {
     padding: 3px;
   }
   .v-btn{
     padding: 15px;
-    min-width: auto;
+    
   }
 }
 </style>

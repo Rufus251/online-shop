@@ -26,7 +26,7 @@ export default {
   computed: {
     ...mapState({
       isAuth: (state) => state.isAuth,
-      isAdmin: (state) => state.isAdmin,
+      isAdmin: (state) => state.user.role,
     }),
   },
   methods: {

@@ -4,7 +4,7 @@ import controller from "../controllers/deviceController.js"
 
 const router = new Router();
 
-router.post("/", checkRole('ADMIN'), controller.create);
+router.post("/",  controller.create);
 router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
 

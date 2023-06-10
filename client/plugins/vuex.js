@@ -4,7 +4,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     state: {
       authMessage: "",
       isAuth: false,
-
       user: {
         email: null,
         password: null,
@@ -12,8 +11,13 @@ export default defineNuxtPlugin((nuxtApp) => {
         basket: "",
         token: process.server ? "" : localStorage.token || null,
       },
+
+      brands: [],
+      types: [],
+      devices: []
     },
     mutations: {
+      // Регистрация, логин и т.п.
       setAuthMessage(state, message) {
         state.authMessage = message;
       },
@@ -27,8 +31,19 @@ export default defineNuxtPlugin((nuxtApp) => {
         state.user.token = payload.token;
         state.user.basket = payload.basket;
       },
+      setType(state, payload){
+        state.types = payload;
+      },
+      setBrands(state, payload){
+        state.brands = payload;
+      },
+      setDevice(state, payload){
+        state.devices = payload;
+      }
     },
     actions: {
+
+      // Регистрация, логин и т.п
       async tokenAuth(state) {
         try {
           const checkToken = "Bearer " + localStorage.getItem("token");
@@ -38,7 +53,6 @@ export default defineNuxtPlugin((nuxtApp) => {
               Authorization: checkToken,
             },
           });
-          console.log(data._rawValue)
           const { token, id, email, password, role } = data._rawValue.user
           state.commit('setUser',{
             email: email,
@@ -77,7 +91,6 @@ export default defineNuxtPlugin((nuxtApp) => {
           console.log(e);
         }
       },
-
       async login(state, user) {
         try {
           let res = await useFetch("http://localhost:5000/api/user/login", {
@@ -113,6 +126,28 @@ export default defineNuxtPlugin((nuxtApp) => {
           basket: "",
         });
       },
+
+      // Товар
+
+      async typeBrandDeviceLoad(state){
+        try {
+          let brand = await useFetch("http://localhost:5000/api/brand");
+          let type = await useFetch("http://localhost:5000/api/type");
+          let device = await useFetch("http://localhost:5000/api/device");
+          
+          brand = brand.data._rawValue
+          type = type.data._rawValue
+          device = device.data._rawValue
+          console.log(brand)
+          console.log(type)
+          console.log(device)
+          state.commit('setBrands', brand)
+          state.commit('setType', type)
+          state.commit('setDevice', device.rows)
+        } catch (e) {
+          console.log(e)
+        }
+      }
     },
   });
 

@@ -81,7 +81,10 @@ export default {
       email: "user@mail.ru",
       emailRules: [
         (value) => !!value || "Введите логин",
-        (value) => value.length > 6 || "Логин должен быть больше 6 символов",
+        (value) => value.indexOf("@") !== 0 || "Некоректный email адрес",
+        (value) => value.includes("@") || "Некоректный email адрес",
+        (value) => value.indexOf(".") - value.indexOf("@") > 1 || "Некоректный email адрес",
+        (value) => value.indexOf(".") <= value.length - 3 || "Некоректный email адрес",
       ],
       password: "123456",
       passwordRules: [

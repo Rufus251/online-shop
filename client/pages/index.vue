@@ -70,17 +70,15 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.sortDevice;
-    }, 3000);
+    this.sortDevice;
   },
   computed: {
     ...mapState({
       brands: (state) => state.brands,
       types: (state) => state.types,
       devices: (state) => state.devices,
-
-      sortDevice() {
+    }),
+    sortDevice() {
         this.sortedDeviceArray = this.devices.filter((device) => {
           
             const brandCondition = this.selectedBrands.includes(
@@ -96,14 +94,6 @@ export default {
           } 
         });
       },
-    }),
-  },
-
-  methods: {
-    ...mapActions({
-      tokenAuth: "tokenAuth",
-      typeAndBrandLoad: "typeAndBrandLoad",
-    }),
   },
 };
 </script>

@@ -8,12 +8,10 @@
 <script> 
 import { mapState, mapActions } from "vuex";
 export default {
-  mounted(){
-    setTimeout(() => {
+ async created(){  
       this.tokenAuth(),
       this.typeBrandDeviceLoad()
-    }, 2000);
-    
+      console.log('async data')
   },
   computed: {
     ...mapState({  

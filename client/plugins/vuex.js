@@ -47,19 +47,22 @@ export default defineNuxtPlugin((nuxtApp) => {
       async tokenAuth(state) {
         try {
           const checkToken = "Bearer " + localStorage.getItem("token");
-          let { data } = await useFetch("http://localhost:5000/api/user/auth", {
+          const res = await useFetch("http://localhost:5000/api/user/auth", {
             method: "GET",
             headers: {
               Authorization: checkToken,
             },
           });
-          const { token, id, email, password, role } = data._rawValue.user
+          console.log(res.data, "Дата")
+          console.log(res.data.value  )
+          const { token, email, password, role } = res.data.value.user
+          
           state.commit('setUser',{
             email: email,
             password: password,
             role: role,
             token: token,
-            basket: data._rawValue.basket,
+            basket: res.data.value.basket,
           })
           state.commit("setAuth", true);
           localStorage.setItem("token", token);
@@ -76,7 +79,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               body: newUser,
             }
           );
-          res = res.data._rawValue;
+          res = res.data.value;
           if (res) {
             state.commit("setAuthMessage", "Регистрация успешна");
             state.commit("setAuth", true);
@@ -97,7 +100,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             method: "POST",
             body: user,
           });
-          res = res.data._rawValue;
+          res = res.data.value;
           state.commit("setUser", {
             email: user.email,
             password: user.password,
@@ -135,9 +138,9 @@ export default defineNuxtPlugin((nuxtApp) => {
           let type = await useFetch("http://localhost:5000/api/type");
           let device = await useFetch("http://localhost:5000/api/device");
           
-          brand = brand.data._rawValue
-          type = type.data._rawValue
-          device = device.data._rawValue
+          brand = brand.data.value
+          type = type.data.value
+          device = device.data.value
           console.log(brand)
           console.log(type)
           console.log(device)
@@ -148,6 +151,8 @@ export default defineNuxtPlugin((nuxtApp) => {
           console.log(e)
         }
       }
+
+      // Админ
     },
   });
 

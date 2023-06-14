@@ -8,8 +8,8 @@
 
           <v-spacer></v-spacer>
           <div class="nav__btns">
-            <v-btn variant="outlined" v-if="isAdmin && isAuth"> Админ-панель </v-btn>
-            <v-btn variant="outlined" v-if="!isAuth" @click="$router.push('/auth')"> Войти </v-btn>
+            <NuxtLink to="/admin" v-if="isAdmin && isAuth"><v-btn variant="outlined" > Админ-панель  </v-btn></NuxtLink>
+            <NuxtLink to="/auth" v-if="!isAuth"><v-btn variant="outlined" > Войти  </v-btn></NuxtLink>
             <v-btn variant="outlined" v-else @click="logout()"> Выйти из аккаунта </v-btn>
           </div>
         </v-app-bar>

@@ -69,14 +69,12 @@ export default {
       sortedDeviceArray: [],
     };
   },
-  mounted() {
+  async mounted() {
+    await this.typeBrandDeviceLoad();
     this.sortDevice;
   },
   computed: {
     async sortDevice() {
-      if (this.$store.state.devices) {
-        await this.typeBrandDeviceLoad();
-      }
       console.log("sort device");
       this.sortedDeviceArray = this.devices.filter((device) => {
         const brandCondition =

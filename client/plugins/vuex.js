@@ -47,7 +47,10 @@ export default defineNuxtPlugin((nuxtApp) => {
       async tokenAuth(state) {
         try {
           const checkToken = "Bearer " + localStorage.getItem("token");
-          const fa = await useFetch("http://localhost:5000/api/user/auth")
+
+          // idk, this dont work without it
+          const foo = await useFetch("http://localhost:5000/api/user/auth")
+
           const res = await useFetch("http://localhost:5000/api/user/auth", {
             headers: {
               Authorization: checkToken,
@@ -133,7 +136,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
         try {
 
+          // idk, this dont work without it
           let type = await useFetch("http://localhost:5000/api/type");
+
           type = await useFetch("http://localhost:5000/api/type");
           let device = await useFetch("http://localhost:5000/api/device");
           let brand = await useFetch("http://localhost:5000/api/brand");
@@ -151,14 +156,60 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
 
       // Админ
-      async addNewType(state, newTypeName){
-        console.log("Функция", newTypeName)
+      async addNewType(state, name){
+        console.log("Функция", name)
+        const token = "Bearer " + localStorage.getItem("token");
+        console.log(token)
+        try {
+          const res = await useFetch("http://localhost:5000/api/type", {
+            method: "POST",
+            headers: {
+              Authorization: token,
+            },
+            body: {name}
+          });
+        } catch (e) {
+          console.log(e)
+        }
       },
-      async addNewBrand(state, newBrandName){
-        console.log("Функция", newBrandName)
+      async addNewBrand(state, name){
+        console.log("Функция", name)
+        const token = "Bearer " + localStorage.getItem("token");
+        try {
+          const res = await useFetch("http://localhost:5000/api/brand", {
+            method: "POST",
+            headers: {
+              Authorization: token,
+            },
+            body: {name}
+          });
+        } catch (e) {
+          console.log(e)
+        }
       },
       async addNewDevice(state, newDevice){
         console.log("Функция", newDevice)
+        const brand = state.state.brands.filter(brand => brand.name === newDevice.newDeviceBrand)
+        const type = state.state.types.filter(type => type.name === newDevice.newDeviceType)
+        console.log(brand[0].name, type[0].name)
+        const token = "Bearer " + localStorage.getItem("token");
+        try {
+          let formData = new FormData();
+          formData.append('name', newDevice.newDeviceName)
+          formData.append('price', newDevice.newDevicePrice)
+          formData.append('brandId', brand[0].id)
+          formData.append('typeId', type[0].id)
+          formData.append('img', newDevice.newDeviceImage[0])
+          const res = await useFetch("http://localhost:5000/api/device/create", {
+            method: "POST",
+            headers: {
+              Authorization: token,
+            },
+            body: formData
+          });
+        } catch (e) {
+          console.log(e)
+        }
       },
     },
   });

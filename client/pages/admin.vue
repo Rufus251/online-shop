@@ -138,15 +138,6 @@
               accept="image/png, image/jpeg, image/bmp"
             ></v-file-input>
           </v-row>
-          <v-row>
-            <p>
-              {{ newDeviceName }}
-              {{ newDevicePrice }}
-              {{ newDeviceType }}
-              {{ newDeviceBrand }}
-              {{ newDeviceImage }}
-            </p>
-          </v-row>
         </div>
 
         <v-btn

@@ -7,7 +7,7 @@ import ApiErrorClass from "../error/apiError.js";
 const apiError = new ApiErrorClass();
 
 class DeviceController {
-  async create(req, res, next) {
+  async create(req, res, next) {  
     try {
       let { name, price, brandId, typeId, info } = req.body;
       const { img } = req.files;

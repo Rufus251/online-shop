@@ -43,7 +43,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
     actions: {
 
-      // Регистрация, логин и т.п
+      // Аутентификация
       async tokenAuth(state) {
         try {
           const checkToken = "Bearer " + localStorage.getItem("token");
@@ -129,7 +129,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
 
       // Товар
-
       async typeBrandDeviceLoad(state){
 
         try {
@@ -149,9 +148,18 @@ export default defineNuxtPlugin((nuxtApp) => {
         } catch (e) {
           console.log(e)
         }
-      }
+      },
 
       // Админ
+      async addNewType(state, newTypeName){
+        console.log("Функция", newTypeName)
+      },
+      async addNewBrand(state, newBrandName){
+        console.log("Функция", newBrandName)
+      },
+      async addNewDevice(state, newDevice){
+        console.log("Функция", newDevice)
+      },
     },
   });
 

@@ -47,14 +47,12 @@ export default defineNuxtPlugin((nuxtApp) => {
       async tokenAuth(state) {
         try {
           const checkToken = "Bearer " + localStorage.getItem("token");
+          const fa = await useFetch("http://localhost:5000/api/user/auth")
           const res = await useFetch("http://localhost:5000/api/user/auth", {
-            method: "GET",
             headers: {
               Authorization: checkToken,
             },
           });
-          console.log(res.data, "Дата")
-          console.log(res.data.value  )
           const { token, email, password, role } = res.data.value.user
           
           state.commit('setUser',{
@@ -133,17 +131,18 @@ export default defineNuxtPlugin((nuxtApp) => {
       // Товар
 
       async typeBrandDeviceLoad(state){
+
         try {
-          let brand = await useFetch("http://localhost:5000/api/brand");
+
           let type = await useFetch("http://localhost:5000/api/type");
+          type = await useFetch("http://localhost:5000/api/type");
           let device = await useFetch("http://localhost:5000/api/device");
+          let brand = await useFetch("http://localhost:5000/api/brand");
           
           brand = brand.data.value
           type = type.data.value
           device = device.data.value
-          console.log(brand)
-          console.log(type)
-          console.log(device)
+      
           state.commit('setBrands', brand)
           state.commit('setType', type)
           state.commit('setDevices', device.rows)

@@ -73,27 +73,35 @@ export default {
     this.sortDevice;
   },
   computed: {
+    async sortDevice() {
+      if (this.$store.state.devices) {
+        await this.typeBrandDeviceLoad();
+      }
+      console.log("sort device");
+      this.sortedDeviceArray = this.devices.filter((device) => {
+        const brandCondition =
+          this.selectedBrands.includes(device.brandId.toString()) ||
+          this.selectedBrands.length === 0;
+
+        const typeCondition =
+          this.selectedTypes.includes(device.typeId.toString()) ||
+          this.selectedTypes.length === 0;
+
+        if (brandCondition && typeCondition) {
+          return true;
+        }
+      });
+    },
     ...mapState({
       brands: (state) => state.brands,
       types: (state) => state.types,
       devices: (state) => state.devices,
     }),
-    sortDevice() {
-        this.sortedDeviceArray = this.devices.filter((device) => {
-          
-            const brandCondition = this.selectedBrands.includes(
-            device.brandId.toString()
-          ) || this.selectedBrands.length === 0;
-          
-          const typeCondition = this.selectedTypes.includes(
-            device.typeId.toString()
-          ) || this.selectedTypes.length === 0;
-          
-          if (brandCondition && typeCondition) {
-            return true;
-          } 
-        });
-      },
+  },
+  methods: {
+    ...mapActions({
+      typeBrandDeviceLoad: "typeBrandDeviceLoad",
+    }),
   },
 };
 </script>

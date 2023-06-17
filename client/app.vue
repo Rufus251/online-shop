@@ -6,25 +6,15 @@
 </template>
 
 <script> 
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 export default {
- async created(){  
-      this.tokenAuth(),
-      this.typeBrandDeviceLoad()
-      console.log('async data')
+ async mounted(){ 
+   await this.tokenAuth()
   },
-  computed: {
-    ...mapState({  
-      isAuth: state => state.isAuth,
-      isAdmin: state => state.isAdmin,  
-    })
-  },
-  
   methods: {
     ...mapActions({
-      tokenAuth: "tokenAuth",
-      typeBrandDeviceLoad: "typeBrandDeviceLoad"
-    }) 
+      tokenAuth: "tokenAuth"
+    })
   }
 };
 </script>

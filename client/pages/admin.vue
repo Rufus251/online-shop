@@ -256,9 +256,6 @@ export default {
         display: flex;
         flex-direction: column;
         gap: 10px;
-
-        &__description {
-        }
       }
     }
     &__submit {

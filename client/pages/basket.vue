@@ -102,6 +102,7 @@ export default {
           }
         }
         &__price {
+            color: #5e5e5e;
         }
       }
     }

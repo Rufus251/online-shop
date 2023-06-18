@@ -9,7 +9,7 @@
           {{ device.name }}
         </h2>
         <p>Стоимость: {{ device.price }} рублей</p>
-        <v-btn rounded="lg">В корзину</v-btn>
+        <v-btn rounded="lg" @click="addToCart(device.id)">В корзину</v-btn>
       </div>
     </div>
 
@@ -30,11 +30,10 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      id: this.$route.params.id,
       device: "",
     };
   },
@@ -43,10 +42,16 @@ export default {
   },
   methods: {
     async getDevice() {
-      let res = await useFetch("http://localhost:5000/api/device/" + this.id);
-      console.log(res.data._rawValue);
-      this.device = res.data._rawValue;
+      const ref = "http://localhost:5000/api/device/" + this.$route.params.id;
+      // idk, dont work without it
+      let foo = await useFetch(ref);
+
+      let res = await useFetch(ref);
+      this.device = res.data.value;
     },
+    ...mapActions({
+      addToCart: "addToCart"
+    })
   },
 };
 </script>

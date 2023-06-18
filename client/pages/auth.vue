@@ -28,7 +28,7 @@
           </p>
         </v-col>
         <v-col>
-          <div class="auth__btn">
+          <div class="auth__btns">
             <p v-if="!isRegister">
               Нет аккаунта?
               <span @click="isRegister = !isRegister">Регистрация</span>
@@ -37,30 +37,21 @@
               Есть аккаунт? <span @click="isRegister = !isRegister">Войти</span>
             </p>
             <v-btn
+              class="auth__btns__btn"
               v-if="!isRegister"
               type="submit"
               variant="outlined"
-              block
-              @click="
-                loginUser(
-                  email,
-                  password
-                )
-              "
+              @click="loginUser(email, password)"
+              label="Войти"
             >
               Войти
             </v-btn>
             <v-btn
+              class="auth__btns__btn"
               v-else
               type="submit"
               variant="outlined"
-              block
-              @click="
-                registerUser(
-                  email,
-                  password
-                )
-              "
+              @click="registerUser(email, password)"
             >
               Зарегистрироваться
             </v-btn>
@@ -80,11 +71,14 @@ export default {
       isRegister: false,
       email: "user@mail.ru",
       emailRules: [
-        (value) => !!value || "Введите логин",
+        (value) => !!value || "Введите email",
         (value) => value.indexOf("@") !== 0 || "Некоректный email адрес",
         (value) => value.includes("@") || "Некоректный email адрес",
-        (value) => value.indexOf(".") - value.indexOf("@") > 1 || "Некоректный email адрес",
-        (value) => value.indexOf(".") <= value.length - 3 || "Некоректный email адрес",
+        (value) =>
+          value.indexOf(".") - value.indexOf("@") > 1 ||
+          "Некоректный email адрес",
+        (value) =>
+          value.indexOf(".") <= value.length - 3 || "Некоректный email адрес",
       ],
       password: "123456",
       passwordRules: [
@@ -106,13 +100,13 @@ export default {
       register: "register",
     }),
     async loginUser(email, password) {
-      await this.login({email, password});
+      await this.login({ email, password });
       if (this.isAuth) {
         this.$router.push("/");
       }
     },
     async registerUser(email, password) {
-      await this.register({email, password});
+      await this.register({ email, password });
       if (this.isAuth) {
         this.$router.push("/");
       }
@@ -134,7 +128,7 @@ export default {
   &__message {
     color: rgb(223, 0, 0);
   }
-  &__btn {
+  &__btns {
     margin: auto;
 
     display: flex;
@@ -150,6 +144,15 @@ export default {
       &:hover {
         cursor: pointer;
       }
+    }
+
+    &__btn {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+
+      justify-content: center;
+      align-items: center;
     }
   }
 }

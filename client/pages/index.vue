@@ -39,7 +39,7 @@
     <div class="index__devices">
       <div
         class="index__devices__device"
-        v-for="device in sortedDeviceArray"
+        v-for="device in sortDevice"
         :key="device.id"
         @click="$router.push('/device/' + device.id)"
       >
@@ -74,8 +74,7 @@ export default {
     this.sortDevice;
   },
   computed: {
-    async sortDevice() {
-      console.log("sort device");
+    sortDevice() {
       this.sortedDeviceArray = this.devices.filter((device) => {
         const brandCondition =
           this.selectedBrands.includes(device.brandId.toString()) ||
@@ -89,6 +88,7 @@ export default {
           return true;
         }
       });
+      return this.sortedDeviceArray;
     },
     ...mapState({
       brands: (state) => state.brands,

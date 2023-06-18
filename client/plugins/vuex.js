@@ -14,10 +14,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       brands: [],
       types: [],
-      devices: []
+      devices: [],
+
+      cart: []
     },
     mutations: {
-      // Регистрация, логин и т.п.
       setAuthMessage(state, message) {
         state.authMessage = message;
       },
@@ -39,11 +40,14 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
       setDevices(state, payload){
         state.devices = payload;
+      },
+      setCart(state, payload){
+        state.cart = payload
       }
     },
     actions: {
 
-      // Аутентификация
+      // Auth
       async tokenAuth(state) {
         try {
           const checkToken = "Bearer " + localStorage.getItem("token");
@@ -67,6 +71,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           })
           state.commit("setAuth", true);
           localStorage.setItem("token", token);
+          state.dispatch("getCart")
         } catch (e) {
           console.log(e);
         }
@@ -113,6 +118,8 @@ export default defineNuxtPlugin((nuxtApp) => {
           state.commit("setAuthMessage", "Вход выполнен");
 
           localStorage.setItem("token", res.token);
+
+          state.dispatch("getCart")
         } catch (e) {
           state.commit("setAuthMessage", "Неверный логин или пароль");
           console.log(e);
@@ -131,7 +138,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         });
       },
 
-      // Товар
+      // Shop
       async typeBrandDeviceLoad(state){
 
         try {
@@ -155,7 +162,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       },
 
-      // Админ
+      // Admin
       async addNewType(state, name){
         console.log("Функция", name)
         const token = "Bearer " + localStorage.getItem("token");
@@ -211,6 +218,53 @@ export default defineNuxtPlugin((nuxtApp) => {
           console.log(e)
         }
       },
+
+      // Cart
+      async addToCart(state, deviceId){
+        const cart = state.state.cart
+        if(cart.find(device => device.id === deviceId)){
+          alert("Вы уже добавили этот девайс в корзину!")
+          return false
+        }
+        if(!state.state.user.email){
+          alert("Авторизуйтесь для покупок!")
+          return false
+        }
+        try {
+          const res = await useFetch("http://localhost:5000/api/basket/create", {
+            method: "POST",
+            body: {
+              "basketId": state.state.user.basket.id,
+              deviceId
+            }
+          });
+          state.dispatch("getCart")
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async getCart(state){
+        const ref = "http://localhost:5000/api/basket/" + state.state.user.basket.id
+        const foo = await useFetch(ref)
+        const res = await useFetch(ref);
+        
+        let cart = res.data.value
+        await state.dispatch("typeBrandDeviceLoad")
+
+        cart = cart.map(item => state.state.devices.find(device => device.id === item.deviceId))
+        
+        state.commit("setCart", cart)
+      },
+      async deleteFromCart(state, deviceId){
+        const basketId = state.state.user.basket.id
+        const ref = "http://localhost:5000/api/basket/" + basketId + "/" + deviceId
+
+        const res = await useFetch(ref, {
+          method:"DELETE"
+        })
+
+        state.dispatch("getCart")
+      }
     },
   });
 

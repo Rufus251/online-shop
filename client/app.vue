@@ -28,7 +28,7 @@ export default {
   max-width: auto;
   width: auto;
 
-  font-family: "Comic Sans MS"
+  font-family: "Cambria"
 }
 .main{
   margin-top: 64px;

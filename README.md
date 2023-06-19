@@ -30,4 +30,4 @@ Online shoping app. App allows users to view a catalog of products and add them 
 * Open http://localhost:3000
 
 ## Author
-Vladimir Rybalin
+Vladimir Rybalkin

@@ -1,5 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { User } from "../models/models.js";
+
+import tokenService from "../service/tokenService.js";
+
 export default async function(req, res, next){
     if (req.method === 'OPTIONS'){
         next()
@@ -10,8 +13,8 @@ export default async function(req, res, next){
         if(!token){
             return res.status(401).json({message: "Токен не валиден"})
         }
-        const decoded = jwt.verify(token, process.env.SECRET_KEY)
-
+        const decoded = tokenService.checkToken(token)
+        
         const user = await User.findOne({ where: { id: decoded.id } });
         if (user.token !== token){
             return res.status(401).json({message: "Устаревший токен"})

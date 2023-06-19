@@ -1,20 +1,10 @@
 import ApiErrorClass from "../error/apiError.js";
 
 import bcrypt, { compareSync } from "bcrypt";
-import jwt from "jsonwebtoken";
+import tokenService from "../service/tokenService.js";
 import { User, Basket } from "../models/models.js";
 
-function generateJwt(id, email, role) {
-  return jwt.sign(
-    {
-      id,
-      email,
-      role,
-    },
-    process.env.SECRET_KEY,
-    { expiresIn: "7d" }
-  );
-}
+
 
 const apiError = new ApiErrorClass();
 
@@ -35,7 +25,7 @@ class UserController {
     const user = await User.create({ email, role, password: hashPassword });
 
     const basket = await Basket.create({ userId: user.id });
-    const token = generateJwt(user.id, user.email, user.role);
+    const token = tokenService.generateJwt(user.id, user.email, user.role);
 
     user.token = token
     await user.save()
@@ -56,14 +46,14 @@ class UserController {
     }
     const userId = user.id;
     const basket = await Basket.findOne({ where: { userId } });
-    const token = generateJwt(user.id, user.email, user.role);
+    const token = tokenService.generateJwt(user.id, user.email, user.role);
     user.token = token
     await user.save()
     return res.json({ token, role: user.role, basket });
   }
 
   async checkAuth(req, res, next) {
-    const token = generateJwt(req.user.id, req.user.email, req.user.role);
+    const token = tokenService.generateJwt(req.user.id, req.user.email, req.user.role);
     const user = await User.findOne({ where: { id: req.user.id } });
     const basket = await Basket.findOne({ where: { userId: user.id } });
     user.token = token

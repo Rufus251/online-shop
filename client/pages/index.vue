@@ -107,7 +107,10 @@ export default {
 <style scoped lang="scss">
 .index {
   margin-top: 84px;
-  margin-left: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 95vw;
 
   display: flex;
 

@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       isRegister: false,
-      email: "user@mail.ru",
+      email: "",
       emailRules: [
         (value) => !!value || "Введите email",
         (value) => value.indexOf("@") !== 0 || "Некоректный email адрес",
@@ -80,7 +80,7 @@ export default {
         (value) =>
           value.indexOf(".") <= value.length - 3 || "Некоректный email адрес",
       ],
-      password: "123456",
+      password: "",
       passwordRules: [
         (value) => !!value || "Введите пароль",
         (value) =>

@@ -1,19 +1,19 @@
 # Online Shop (Node + express + PostgreSQL + Nuxt)
 
 ## Main page
-![MainPage](https://github.com/Rufus251/online-shop/assets/119047983/cff61723-2324-4c6a-902a-1b108a1e1dbf)
+![App_index](https://github.com/Rufus251/online-shop/assets/119047983/be702400-6749-45dd-b326-906eec9a20b3)
 
 ## Auth page
-![App auth](https://github.com/Rufus251/online-shop/assets/119047983/c4c7aa9f-32d2-407c-9ba8-cc623b704d11)
+![App_auth](https://github.com/Rufus251/online-shop/assets/119047983/792e72bb-6b46-4c85-a16a-0aba04b7b337)
 
 ## Device-info page
-![App device](https://github.com/Rufus251/online-shop/assets/119047983/508ee73d-69c0-4bed-aabb-583d14db15b1)
+![App_device](https://github.com/Rufus251/online-shop/assets/119047983/b904ebfa-dbe5-4463-a2a6-78e0e53c4d33)
 
 ## Basket page
-![App basket](https://github.com/Rufus251/online-shop/assets/119047983/0f7d9626-afc8-407a-a906-b53d2b903fc5)
+![App_basket](https://github.com/Rufus251/online-shop/assets/119047983/144c8b33-51b3-4eb5-a874-e2c65795324d)
 
 ## Admin page (1)
-![App admin1](https://github.com/Rufus251/online-shop/assets/119047983/9d729955-dfe2-45a1-9421-fe2e424de7aa)
+![App_admin1](https://github.com/Rufus251/online-shop/assets/119047983/4be2570e-f4ec-43ab-9ed8-889c470eac89)
 
 ## Admin page (2)
-![App admin2](https://github.com/Rufus251/online-shop/assets/119047983/fe3d765e-ac6a-4c27-85b4-0bd5c427f8f4)
+![App_admin2](https://github.com/Rufus251/online-shop/assets/119047983/24d92306-9d9a-4c1a-80b6-b7a73470f6ab)

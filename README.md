@@ -25,8 +25,8 @@ Online shoping app. App allows users to view a catalog of products and add them 
 * Download project files and open in code editor
 * Download and install pgAdmin
 * Go to the folder /server, open .env file and paste your DB_NAME, DB_PASSWORD
-* Open the console, go to the folder /server and write the command ```npm run dev ```
-* Go to the folder /client and write the command ```npm run dev ```
+* Open the console, go to the folder /server and write the command ```npm i```, then ```npm run dev ```
+* Go to the folder /client and write the command ```npm i```, then ```npm run dev ```
 * Open http://localhost:3000
 
 ## Author

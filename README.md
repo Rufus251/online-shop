@@ -1,2 +1,2 @@
-# online-shop
-Online shop (Node + express + PostgreSQL + VueJS)
+# Online Shop (Node + express + PostgreSQL + Nuxt)
+
